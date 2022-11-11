@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "JWT.Cli": {
+      "commandName": "Project"
+    }
+  }
+}
