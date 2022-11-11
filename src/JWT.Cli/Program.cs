@@ -35,3 +35,5 @@ if (firstArgument != null)
             .Centered());
     });
 }
+
+Console.ReadKey();
