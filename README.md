@@ -6,16 +6,15 @@ Build and setup globally as dotnet tooling:
 
 1. Clone the repo
 
-2. Build: Run following command in the src directory
+2. Build
 ```shell
-dotnet pack
+dotnet pack ./src -c Release
 ```
 
-3. Install globally: Run following command in the src directory
+3. Install globally
 ```shell
-dotnet tool install --global --add-source ./jwt.cli/nupkg JWT.Cli 
+dotnet tool install --global --add-source ./src/jwt.cli/nupkg JWT.Cli 
 ```
-
 
 To uninstall:
 ```shell

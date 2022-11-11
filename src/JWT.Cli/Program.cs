@@ -13,27 +13,40 @@ AnsiConsole
         .Centered());
 AnsiConsole.WriteLine();
 
-/////////////////////////////////////////////////////////////////
-// Business
-/////////////////////////////////////////////////////////////////
-var firstArgument = args?[0];
-if (firstArgument != null)
+var token = args.FirstOrDefault();
+if (token == null)
 {
-    AnsiConsole.Status()
-    .Spinner(Spinner.Known.Arc)
-    .Start("Parsing...", ctx => {
-        var watch = Stopwatch.StartNew();
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var parsedToken = tokenHandler.ReadJwtToken(firstArgument);
-        AnsiConsole.MarkupLine($"[red]{parsedToken.Header.Print()}[/]");
-        AnsiConsole.MarkupLine($"[purple_2]{parsedToken.Payload.Print()}[/]");
-        watch.Stop();
-        AnsiConsole.WriteLine();
-        AnsiConsole
-            .Write(new Rule($"[blue]{watch.ElapsedMilliseconds} ms[/]")
-            .RuleStyle(Style.Parse("blue"))
-            .Centered());
-    });
+    token = AnsiConsole.Ask<string>("[blue]JWT Token:[/]");
+    AnsiConsole.WriteLine();
 }
+
+var watch = Stopwatch.StartNew();
+AnsiConsole.Status()
+    .Spinner(Spinner.Known.Arc)
+    .Start("Parsing...", ctx =>
+    {
+        var tokenHandler = new JwtSecurityTokenHandler();
+        try
+        {
+            var parsedToken = tokenHandler.ReadJwtToken(token.Trim());
+            AnsiConsole.MarkupLine($"[red]{parsedToken.Header.Print()}[/]");
+            AnsiConsole.MarkupLine($"[purple_2]{parsedToken.Payload.Print()}[/]");
+        }
+        catch (ArgumentException)
+        {
+            AnsiConsole.MarkupLine($"[darkorange3_1]Invalid token[/]");
+        }
+        catch (Exception)
+        {
+            AnsiConsole.MarkupLine($"[red]Something went wrong during parsing[/]");
+        }
+    });
+
+watch.Stop();
+AnsiConsole.WriteLine();
+AnsiConsole
+    .Write(new Rule($"[blue]{watch.ElapsedMilliseconds} ms[/]")
+    .RuleStyle(Style.Parse("blue"))
+    .Centered());
 
 Console.ReadKey();
