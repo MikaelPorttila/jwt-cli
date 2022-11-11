@@ -32,7 +32,7 @@ jobs:
       run: |
         echo "SemVer: $GITVERSION_SEMVER"
     - name: Pack
-      run: dotnet pack ./src -c Release
+      run: dotnet pack ./src -c Release /p:Version=$GITVERSION_SEMVER
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v3.1.1
       with:
