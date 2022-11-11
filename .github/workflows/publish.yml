@@ -33,5 +33,5 @@ jobs:
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v3.1.1
       with:
-        name: JWT.Cli.v{$GITVERSION_SEMVER}
+        name: JWT.Cli
         path: ./src/JWT.Cli/nupkg/*.nupkg
