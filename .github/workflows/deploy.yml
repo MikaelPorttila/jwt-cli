@@ -21,4 +21,4 @@ jobs:
       with:
         dotnet-version: 7.0.x
     - name: Pack
-      run: dotnet pack
+      run: dotnet pack ./src
