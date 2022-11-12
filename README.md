@@ -4,7 +4,7 @@ _[![Spectre.Console NuGet Version](https://img.shields.io/nuget/v/jwt.cli.svg?st
 Small tool for handling daily tasks with json web tokens.
 Lets keep tokens safe by not posting them on the internet.
 
-## Install as dotnet tool from NuGet:
+## Install as dotnet tool from NuGet
 ```shell
 dotnet tool install --global JWT.Cli
 ```
@@ -14,7 +14,7 @@ dotnet tool install --global JWT.Cli
 jwt <token>
 ```
 
-## Build and setup locally:
+## Build and setup locally
 There is a `install.bat` file included in the project but but these are the steps to do it manually:
 
 prerequisites:
