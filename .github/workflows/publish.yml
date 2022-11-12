@@ -2,10 +2,9 @@ name: Publish
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
+    tags:        
+      - '[0-9]+.[0-9]+.[0-9]+'
+      
 jobs:
   build:
 
@@ -13,24 +12,18 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - run: |
-        git fetch --prune --unshallow --tags
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
-    - name: Install GitVersion
-      uses: gittools/actions/gitversion/setup@v0.9.7
-      with:
-        versionSpec: '5.x'
-    - name: Determine Version
-      uses: gittools/actions/gitversion/execute@v0.9.7
+    - name: Set VERSION variable from tag
+      run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
     - name: Display SemVer
       run: |
         echo "SemVer: $GITVERSION_SEMVER"
     - name: Pack
-      run: dotnet pack ./src -c Release /p:Version=$GITVERSION_SEMVER
-    - name: Upload Build Artifact
+      run: dotnet pack ./src -c Release /p:Version=${VERSION}
+    - name: Publish artifact in Git Actions pipeline
       uses: actions/upload-artifact@v3.1.1
       with:
         name: JWT.Cli
