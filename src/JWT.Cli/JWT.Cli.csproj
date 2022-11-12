@@ -8,6 +8,8 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>jwt</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
+    <RepositoryUrl>https://github.com/MikaelPorttila/jwt-cli</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
