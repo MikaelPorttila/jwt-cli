@@ -1,31 +1,28 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
+using System.Text.Json;
 
 namespace JWT.Cli.Extensions
 {
 	public static class JwtExtensions
 	{
-		public static string Print(this JwtHeader header)
+		public static string Print(this IDictionary<string, object> fields)
 		{
-			if (header == null)
+			if (fields == null)
 			{
 				return string.Empty;
 			}
 
-			return header
-				.SerializeToJson()
-				.PrettyJson();
+			return JsonExtensions
+				.SerializeToJson(fields)
+				.FormatJson();
 		}
 
-		public static string Print(this JwtPayload payload)
+		private static string FormatJson(this string value)
 		{
-			if (payload == null)
+			return JsonSerializer.Serialize(JsonSerializer.Deserialize<JsonElement>(value), new JsonSerializerOptions()
 			{
-				return string.Empty;
-			}
-
-			return payload
-				.SerializeToJson()
-				.PrettyJson();
+				WriteIndented = true
+			});
 		}
 	}
 }
