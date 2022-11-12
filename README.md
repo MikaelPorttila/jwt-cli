@@ -9,7 +9,16 @@ Lets keep tokens safe by not posting them on the internet.
 dotnet tool install --global JWT.Cli
 ```
 
-## Build and setup globally as dotnet tooling:
+## Usage
+```
+jwt <token>
+```
+
+## Build and setup locally:
+There is a `install.bat` file included in the project but but these are the steps to do it manually:
+
+prerequisites:
+- .Net 7
 
 1. Clone the repo
 
