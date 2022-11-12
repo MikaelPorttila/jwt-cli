@@ -27,3 +27,10 @@ To uninstall:
 ```shell
 dotnet tool uninstall jwt.cli --global 
 ```
+## License
+
+Copyright © Mikael Porttila
+
+JWT.Cli is provided as-is under the MIT license. For more information see LICENSE.
+
+* For Spectre.Console, see https://github.com/spectreconsole/spectre.console/blob/main/LICENSE.md
