@@ -35,3 +35,5 @@ jobs:
       with:
         name: JWT.Cli
         path: ./src/JWT.Cli/nupkg/*.nupkg
+    - name: Publish Nuget
+      run: dotnet nuget push ./src/JWT.Cli/nupkg/*.nupkg --source https://api.nuget.org/v3/index.json --api-key "${{secrets.NUGET_API_KEY}}"
