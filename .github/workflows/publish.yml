@@ -17,10 +17,7 @@ jobs:
       with:
         dotnet-version: 7.0.x
     - name: Set VERSION variable from tag
-      run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
-    - name: Display SemVer
-      run: |
-        echo "SemVer: $GITVERSION_SEMVER"
+      run: echo "VERSION=${GITHUB_REF/refs\/tags\/}" >> $GITHUB_ENV
     - name: Pack
       run: dotnet pack ./src -c Release /p:Version=${VERSION}
     - name: Publish artifact in Git Actions pipeline
