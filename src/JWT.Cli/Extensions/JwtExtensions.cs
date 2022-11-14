@@ -11,18 +11,6 @@ namespace JWT.Cli.Extensions
 			WriteIndented = true
 		};
 
-		public static string Print(this IDictionary<string, object> fields)
-		{
-			if (fields == null)
-			{
-				return string.Empty;
-			}
-
-			return JsonExtensions
-				.SerializeToJson(fields)
-				.FormatJson();
-		}
-
 		public static IEnumerable<string> Parse(string token)
 		{
 			if (string.IsNullOrEmpty(token))
