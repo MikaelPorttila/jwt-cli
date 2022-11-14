@@ -1,7 +1,6 @@
-﻿using Spectre.Console;
+﻿using JWT.Cli.Extensions;
+using Spectre.Console;
 using System.Diagnostics;
-using System.IdentityModel.Tokens.Jwt;
-using JWT.Cli.Extensions;
 
 AnsiConsole.ResetColors();
 AnsiConsole
@@ -11,23 +10,28 @@ AnsiConsole
 AnsiConsole.WriteLine();
 
 var token = args.FirstOrDefault();
-if (token == null)
+if (string.IsNullOrEmpty(token))
 {
 	token = AnsiConsole.Ask<string>("[blue]JWT Token:[/]");
 	AnsiConsole.WriteLine();
 }
 
+const string template = "[{0}]{1}[/]";
+var printColors = new[] { "red", "purple_2", "blue" };
+
 var watch = Stopwatch.StartNew();
+
 AnsiConsole.Status()
 	.Spinner(Spinner.Known.Arc)
 	.Start("Parsing...", ctx =>
 	{
-		var tokenHandler = new JwtSecurityTokenHandler();
 		try
 		{
-			var parsedToken = tokenHandler.ReadJwtToken(token.Trim());
-			AnsiConsole.MarkupLine($"[red]{parsedToken.Header.Print()}[/]");
-			AnsiConsole.MarkupLine($"[purple_2]{parsedToken.Payload.Print()}[/]");
+			var tokenSections = JwtExtensions.Parse(token).ToArray();
+			for (int i = 0; i < tokenSections.Length; i++)
+			{
+				AnsiConsole.MarkupLine(template, printColors[i], Markup.Escape(tokenSections[i]));
+			}
 		}
 		catch (ArgumentException)
 		{
