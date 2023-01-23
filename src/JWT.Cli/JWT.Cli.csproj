@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <PackageReference Include="Spectre.Console" Version="0.45.0" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.26.0" />
   </ItemGroup>
 
 </Project>
